@@ -8,6 +8,13 @@
     <link href="{{ URL::asset('assets/plugins/datatable/css/jquery.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('assets/plugins/datatable/css/responsive.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
+
+    <!---Internal Owl Carousel css-->
+    <link href="{{ URL::asset('assets/plugins/owl-carousel/owl.carousel.css') }}" rel="stylesheet">
+    <!---Internal  Multislider css-->
+    <link href="{{ URL::asset('assets/plugins/multislider/multislider.css') }}" rel="stylesheet">
+    <!--- Select2 css -->
+    <link href="{{ URL::asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
 @endsection
 @section('pages')
     {{ $title }}
@@ -49,8 +56,40 @@
                                                 class="btn btn-warning btn-sm" title="Edit">
                                                 <i class="fa fa-pen"></i>
                                             </a>
+                                            <a class="btn ripple btn-danger btn-sm" data-target="#scrollmodal"
+                                                data-toggle="modal" href=""><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
+                                    <!-- Scroll with content modal -->
+                                    <div class="modal" id="scrollmodal">
+                                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                            <div class="modal-content modal-content-demo">
+                                                <div class="modal-header">
+                                                    <h6 class="modal-title">Scrolling With Content Modal</h6><button
+                                                        aria-label="Close" class="close" data-dismiss="modal"
+                                                        type="button"><span aria-hidden="true">&times;</span></button>
+                                                </div>
+                                                <form action="{{ route('sections.destroy', $section->id) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <div class="modal-body">
+                                                        <p class="text-danger text-center" style='font-size:25px'>?Are You
+                                                            Sure
+                                                            Delete</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn ripple btn-danger" type="submit"
+                                                            type="button">Delete
+                                                        </button>
+                                                        <button class="btn ripple btn-secondary" data-dismiss="modal"
+                                                            type="button">Close</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--End Scroll with content modal -->
                                 @endforeach
                             </tbody>
                         </table>
@@ -80,4 +119,11 @@
     <script src="{{ URL::asset('assets/plugins/datatable/js/responsive.bootstrap4.min.js') }}"></script>
     <!--Internal  Datatable js -->
     <script src="{{ URL::asset('assets/js/table-data.js') }}"></script>
+
+    <!--Internal  Datepicker js -->
+    <script src="{{ URL::asset('assets/plugins/jquery-ui/ui/widgets/datepicker.js') }}"></script>
+    <!-- Internal Select2 js-->
+    <script src="{{ URL::asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+    <!-- Internal Modal js-->
+    <script src="{{ URL::asset('assets/js/modal.js') }}"></script>
 @endsection

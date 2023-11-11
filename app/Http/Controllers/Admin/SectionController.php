@@ -5,17 +5,35 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Section;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Interface\SystemInterface;
 use App\Models\Image;
 use App\Trait\UploadFile;
+use Illuminate\Support\Facades\File;
 
 class SectionController extends Controller
 {
+    protected $section, $models = ['App\Models\Section', 'App\Models\Image'],
+        $vars = ['section', 'image'], $message = 'Section', $section_id = 'section_id';
+
+    function __invoke($models, $vars, $message, $section_id)
+    {
+        $this->models       = $models;
+        $this->vars         = $vars;
+        $this->message      = $message;
+        $this->section_id   = $section_id;
+    }
+
+    function __construct(SystemInterface $section)
+    {
+        $this->section = $section;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $sections = Section::query()->get();
+        $sections = Section::query()->with('images')->get();
         return view('admin.section.index', compact('sections'));
     }
 
@@ -32,33 +50,18 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $data = $request->except('_token', 'image');
-            if (!empty($data)) {
-
-                $section =  Section::query()->create($data);
-                if ($request->hasFile('image')) {
-                    $images = [];
-
-                    foreach ($request->image as $key => $value) {
-                        $image = UploadFile::File("images/sections/", $value);
-                        $images[] = $image;
-                    }
-
-                    foreach ($images as $key => $value) {
-                        $image = new Image();
-                        $image->image = $value;
-                        $image->section_id = $section->id;
-                        $image->save();
-                    }
-                }
-
-                toastr()->success("Successfully Created {$data['title']}", 'success');
-                return redirect()->route('sections.index');
-            }
-        } catch (\Exception $ex) {
-            return redirect()->back()->withErrors(['error' => $ex->getMessage()]);
-        }
+        $data = $request->except('_token', 'image');
+        return $this->section->store(
+            $this->models,
+            $data,
+            null,
+            $this->vars,
+            null,
+            null,
+            $this->section_id,
+            $this->message,
+            $request
+        );
     }
 
     /**
@@ -83,36 +86,21 @@ class SectionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try {
-            $data = $request->except('_token', 'image');
-            $section = Section::query()->findOrFail($id);
-            if (!empty($data)) {
-
-                $section->update($data);
-                if ($request->hasFile('image')) {
-                    $images = [];
-
-                    foreach ($request->image as $key => $value) {
-                        $image = UploadFile::File("images/sections/", $value);
-                        $images[] = $image;
-                    }
-
-
-                    Image::query()->where('section_id', $id)->delete();
-                    foreach ($images as $key => $value) {
-                        $image = new Image();
-                        $image->image = $value;
-                        $image->section_id = $section->id;
-                        $image->save();
-                    }
-                }
-
-                toastr()->success("Successfully Created {$data['title']}", 'success');
-                return redirect()->route('sections.index');
-            }
-        } catch (\Exception $ex) {
-            return redirect()->back()->withErrors(['error' => $ex->getMessage()]);
-        }
+        $data = $request->except('_token', 'image');
+        return $this->section->update(
+            $this->models,
+            $id,
+            $data,
+            null,
+            $this->vars,
+            null,
+            null,
+            $this->section_id,
+            $this->message,
+            $request,
+            'images',
+            'image'
+        );
     }
 
     /**
@@ -120,10 +108,6 @@ class SectionController extends Controller
      */
     public function destroy($id)
     {
-        if (!empty($id)) {
-            Section::query()->where('id', $id)->delete();
-            toastr()->success("Successfully Deleted Section", 'Delete');
-            return redirect()->back()->route('sections.index');
-        }
+        return $this->section->delete($this->models[0], $id, $this->message, 'images', 'image');
     }
 }

@@ -37,10 +37,12 @@
                                 class="form-label @error('description') is-invalid  @enderror">Description</label>
                             <textarea class="form-control" name="description" id="" rows="10" placeholder="Description">{{ $section->description }}</textarea>
                         </div>
-                        <img src="{{ asset($section->images[0]->image) }}" class="img-fluid rounded-top p-2 border mb-3"
-                            style="width:150px;height:150px"alt="">
-                        <img src="{{ asset($section->images[1]->image) }}" class="img-fluid rounded-top p-2 border mb-3 mr-1"
-                            style="width:150px;height:150px"alt="">
+                        @isset($section->images[0])
+                            <img src="{{ asset($section->images[0]->image) }}" class="img-fluid rounded-top p-2 border mb-3"
+                                style="width:150px;height:150px"alt="">
+                            <img src="{{ asset($section->images[1]->image) }}"
+                                class="img-fluid rounded-top p-2 border mb-3 mr-1" style="width:150px;height:150px"alt="">
+                        @endisset
                         <div class="mb-3">
                             <label for="" class="form-label">Choose file</label>
                             <input type="file" class="form-control" name="image[]" id="image"

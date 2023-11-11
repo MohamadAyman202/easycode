@@ -30,8 +30,8 @@
         <ul class="side-menu">
             <li class="side-item side-item-category">Main</li>
             <li class="slide">
-                <a class="side-menu__item" href="{{ url('/' . ($page = 'index')) }}"><svg xmlns="http://www.w3.org/2000/svg"
-                        class="side-menu__icon" viewBox="0 0 24 24">
+                <a class="side-menu__item" href="{{ url('/' . ($page = 'index')) }}"><svg
+                        xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
                         <path d="M0 0h24v24H0V0z" fill="none" />
                         <path d="M5 5h4v6H5zm10 8h4v6h-4zM5 17h4v2H5zM15 5h4v2h-4z" opacity=".3" />
                         <path
@@ -54,21 +54,13 @@
                     </svg><span class="side-menu__label">Sections</span></a>
             </li>
             <li class="slide">
-                <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . ($page = '#')) }}"><svg
+                <a class="side-menu__item" href="{{ route('services.index') }}"><svg
                         xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
                         <path d="M0 0h24v24H0V0z" fill="none" />
                         <path d="M19 5H5v14h14V5zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" opacity=".3" />
                         <path
                             d="M3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2zm2 0h14v14H5V5zm2 5h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z" />
-                    </svg><span class="side-menu__label">Charts</span><i class="angle fe fe-chevron-down"></i></a>
-                <ul class="slide-menu">
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'chart-morris')) }}">Morris Charts</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'chart-flot')) }}">Flot Charts</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'chart-chartjs')) }}">ChartJS</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'chart-echart')) }}">Echart</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'chart-sparkline')) }}">Sparkline</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'chart-peity')) }}">Chart-peity</a></li>
-                </ul>
+                    </svg><span class="side-menu__label">Charts</span></a>
             </li>
             <li class="slide">
                 <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . ($page = '#')) }}"><svg
@@ -82,7 +74,8 @@
                     </svg><span class="side-menu__label">Ecommerce</span><i class="angle fe fe-chevron-down"></i></a>
                 <ul class="slide-menu">
                     <li><a class="slide-item" href="{{ url('/' . ($page = 'products')) }}">Products</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'product-details')) }}">Product-Details</a></li>
+                    <li><a class="slide-item" href="{{ url('/' . ($page = 'product-details')) }}">Product-Details</a>
+                    </li>
                     <li><a class="slide-item" href="{{ url('/' . ($page = 'product-cart')) }}">Cart</a></li>
                 </ul>
             </li>
@@ -97,11 +90,13 @@
                     </svg><span class="side-menu__label">Apps</span><i class="angle fe fe-chevron-down"></i></a>
                 <ul class="slide-menu">
                     <li><a class="slide-item" href="{{ url('/' . ($page = 'cards')) }}">Cards</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'darggablecards')) }}">Darggablecards</a></li>
+                    <li><a class="slide-item" href="{{ url('/' . ($page = 'darggablecards')) }}">Darggablecards</a>
+                    </li>
                     <li><a class="slide-item" href="{{ url('/' . ($page = 'rangeslider')) }}">Range-slider</a></li>
                     <li><a class="slide-item" href="{{ url('/' . ($page = 'calendar')) }}">Calendar</a></li>
                     <li><a class="slide-item" href="{{ url('/' . ($page = 'contacts')) }}">Contacts</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'image-compare')) }}">Image-compare</a></li>
+                    <li><a class="slide-item" href="{{ url('/' . ($page = 'image-compare')) }}">Image-compare</a>
+                    </li>
                     <li><a class="slide-item" href="{{ url('/' . ($page = 'notification')) }}">Notification</a></li>
                     <li><a class="slide-item"
                             href="{{ url('/' . ($page = 'widget-notification')) }}">Widget-notification</a></li>
@@ -181,7 +176,8 @@
                     <li><a class="slide-item" href="{{ url('/' . ($page = 'mail')) }}">Mail</a></li>
                     <li><a class="slide-item" href="{{ url('/' . ($page = 'mail-compose')) }}">Mail Compose</a></li>
                     <li><a class="slide-item" href="{{ url('/' . ($page = 'mail-read')) }}">Read-mail</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'mail-settings')) }}">mail-settings</a></li>
+                    <li><a class="slide-item" href="{{ url('/' . ($page = 'mail-settings')) }}">mail-settings</a>
+                    </li>
                     <li><a class="slide-item" href="{{ url('/' . ($page = 'chat')) }}">Chat</a></li>
                 </ul>
             </li>
@@ -194,8 +190,10 @@
                             d="M8 16h8v2H8zm0-4h8v2H8zm6-10H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z" />
                     </svg><span class="side-menu__label">Forms</span><i class="angle fe fe-chevron-down"></i></a>
                 <ul class="slide-menu">
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'form-elements')) }}">Form Elements</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'form-advanced')) }}">Advanced Forms</a></li>
+                    <li><a class="slide-item" href="{{ url('/' . ($page = 'form-elements')) }}">Form Elements</a>
+                    </li>
+                    <li><a class="slide-item" href="{{ url('/' . ($page = 'form-advanced')) }}">Advanced Forms</a>
+                    </li>
                     <li><a class="slide-item" href="{{ url('/' . ($page = 'form-layouts')) }}">Form Layouts</a></li>
                     <li><a class="slide-item" href="{{ url('/' . ($page = 'form-validation')) }}">Form Validation</a>
                     </li>
