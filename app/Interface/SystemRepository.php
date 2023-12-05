@@ -8,17 +8,17 @@ use Illuminate\Support\Facades\File;
 class SystemRepository implements SystemInterface
 {
     // Function System Store
-    public function store(array $model, array $data, ?string $name_en = null, ?array $var = null, ?string $relationship_name = null, ?string $relationship_value = null, ?string $column_id = null, string $message, $request = null)
+    public function store(array $model, array $data, array $var, string $message, $request = null, ?string $name_en = null, ?string $relationship_name = null, ?string $relationship_value = null, ?string $column_id = null)
     {
         try {
             if (!empty($data)) {
                 if ($request->hasFile('image')) {
-                    $data['image'] = UploadFile::File("images/$var[0]/", $request->images);;
+                    $data['image'] = UploadFile::File("images/$var[0]/", $request->image);
                 }
                 $vars =  $model[0]::query()->create($data);
                 if ($request->hasFile('images')) {
                     $images = [];
-                    foreach ($request->image as $key => $value) {
+                    foreach ($request->images as $key => $value) {
                         $image = UploadFile::File("images/$var[0]/", $value);
                         $images[] = $image;
                     }
@@ -29,11 +29,11 @@ class SystemRepository implements SystemInterface
                         $var[1]->save();
                     }
                 }
-                if ($relationship_name !== null && $relationship_name !== null) {
+                if ($relationship_name !== null && $relationship_value !== null) {
                     $vars->$relationship_name->attach($relationship_value);
                 }
                 toastr()->success("Successfully Created $message", 'success');
-                return redirect()->back();
+                return redirect()->route("$var[0].index");
             }
             toastr()->error("Not Successfully Created $message", 'error');
             return redirect()->back();
@@ -43,13 +43,13 @@ class SystemRepository implements SystemInterface
     }
 
     // Function System Update 
-    public function update(array $model, int $id, array $data, ?string $name_en = null, ?array $var = null, ?string $relationship_name = null, ?string $relationship_value = null, ?string $column_id = null, string $message, $request = null, ?string $relations = null, ?string $image = null)
+    public function update(array $model, int $id, array $data, array $var, string $message, $request = null, ?string $name_en = null, ?string $relationship_name = null, ?string $relationship_value = null, ?string $column_id = null, ?string $relations = null, ?string $image = null)
     {
         try {
             $vars = $model[0]::query()->findOrFail($id);
             if (!empty($data)) {
                 if ($request->hasFile('image')) {
-                    $data['image'] = UploadFile::File("images/$var[0]/", $request->images);;
+                    $data['image'] = UploadFile::File("images/$var[0]/", $request->image);;
                 }
                 if ($relations !== null) {
                     foreach ($vars->$relations as $key => $path) {
@@ -59,7 +59,7 @@ class SystemRepository implements SystemInterface
                 $vars->update($data);
                 if ($request->hasFile('images')) {
                     $images = [];
-                    foreach ($request->image as $key => $value) {
+                    foreach ($request->images as $key => $value) {
                         $image = UploadFile::File("images/$var[0]/", $value);
                         $images[] = $image;
                     }
@@ -71,11 +71,11 @@ class SystemRepository implements SystemInterface
                         $var[1]->save();
                     }
                 }
-                if ($relationship_name !== null && $relationship_name !== null) {
+                if ($relationship_name !== null && $relationship_value !== null) {
                     $vars->$relationship_name->attach($relationship_value);
                 }
                 toastr()->success("Successfully Updated $message", 'success');
-                return redirect()->back();
+                return redirect()->route("$var[0].index");
             }
             toastr()->error("Successfully Updated $message", 'error');
             return redirect()->back();

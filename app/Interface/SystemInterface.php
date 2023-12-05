@@ -18,7 +18,7 @@ interface SystemInterface
      * @param $column_id relations image Table Not Required
      * @return Response
      */
-    public function store(array $model, array $data, string $name_en = null, array $var = null, string $relationship_name = null, string $relationship_value = null, string $column_id = null, string $message, $request = null);
+    public function store(array $model, array $data, array $var, string $message, $request = null, string $name_en = null, string $relationship_name = null, string $relationship_value = null, string $column_id = null,);
 
     /**
      * Function Update Database
@@ -35,7 +35,7 @@ interface SystemInterface
      * @param $column_id relations image Table Not Required
      * @return Response
      */
-    public function update(array $model, int $id, array $data, string $name_en = null, array $var = null, string $relationship_name = null, string $relationship_value = null, string $column_id = null, string $message, $request = null, string $relations = null, string $image = null);
+    public function update(array $model, int $id, array $data, array $var, string $message, $request = null, string $name_en = null, string $relationship_name = null, string $relationship_value = null, string $column_id = null,  string $relations = null, string $image = null);
 
     /**
      * Function Delete
